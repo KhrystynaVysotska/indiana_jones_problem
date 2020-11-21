@@ -1,9 +1,24 @@
 from collections import defaultdict
-from typing import List
+from typing import List, Tuple
+
+INPUT_FILE_NAME = "ijones.in"
+OUTPUT_FILE_NAME = "ijones.out"
+
+
+def read_input_data() -> Tuple[List[List[str]], int, int]:
+    with open(INPUT_FILE_NAME, "r") as input_file:
+        width, height = [int(parameter) for parameter in input_file.readline().strip().split()]
+        corridor = [[letter for letter in row.strip()] for row in input_file.readlines()]
+    return corridor, width, height
+
+
+def write_output_data(ways: int) -> None:
+    with open(OUTPUT_FILE_NAME, "w") as output_file:
+        output_file.write(str(ways))
 
 
 def find_successful_ways(corridor: List[List[str]], width: int, height: int) -> int:
-    number_of_ways_to_tile = [[0 for row in range(width)] for column in range(height)]
+    number_of_ways_to_tile = [[0 for tile in range(width)] for row in range(height)]
     number_of_ways_to_letter = defaultdict(int)
 
     # there is only one way to get to each tile in the most left column
@@ -37,9 +52,6 @@ def update_ways_to_letters(current_column_letter_ways: defaultdict, number_of_wa
 
 
 if __name__ == "__main__":
-    field_two = [["a", "b", "c", "d", "e", "f", "a", "g", "h", "i"]]
-    field_one = [["a", "a", "a"], ["c", "a", "b"], ["d", "e", "f"]]
-    field = [["a", "a", "a", "a", "a", "a", "a"], ["a", "a", "a", "a", "a", "a", "a"],
-             ["a", "a", "a", "a", "a", "a", "a"], ["a", "a", "a", "a", "a", "a", "a"],
-             ["a", "a", "a", "a", "a", "a", "a"], ["a", "a", "a", "a", "a", "a", "a"]]
-    print(find_successful_ways(field, 7, 6))
+    corridor, width, height = read_input_data()
+    number_of_successful_ways = find_successful_ways(corridor, width, height)
+    write_output_data(number_of_successful_ways)
