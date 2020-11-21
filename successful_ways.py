@@ -31,7 +31,7 @@ def find_successful_ways(corridor: List[List[str]], width: int, height: int) -> 
         return number_of_ways_to_tile[0][width - 1] + number_of_ways_to_tile[height - 1][width - 1]
 
 
-def update_ways_to_letters(current_column_letter_ways, number_of_ways_to_letter) -> None:
+def update_ways_to_letters(current_column_letter_ways: defaultdict, number_of_ways_to_letter: defaultdict) -> None:
     for tile_letter in current_column_letter_ways:
         number_of_ways_to_letter[tile_letter] += current_column_letter_ways[tile_letter]
 
